@@ -2,6 +2,7 @@ $color-bg: #fff0d1; // Krem/Svetlo žuta (Pozadina sajta)
 $color-primary: #795757; // Svetlo braon (Header / Primarna)
 $color-secondary: #664343; // Tamno braon (Naglasci / Naslovi)
 $color-dark: #3b3030; // Skoro crna braon (Tekst / Jaki akcenti)
+$color-accent: #8c4843;
 
 /* Osnovni reset */
 * {
@@ -73,6 +74,13 @@ table {
   td {
     padding: 15px 20px;
     text-align: left;
+
+    &:last-child {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      align-items: center;
+    }
   }
 
   thead {
@@ -121,5 +129,35 @@ main {
 /* Prazna stanja i poruke */
 h1 {
   text-align: center;
-  margin-top: 2rem;
+}
+
+/* Globalni stilovi za dugmie */
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+  margin-right: 8px;
+  font-size: 0.9rem;
+
+  &:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.btn-edit {
+  background-color: $color-primary;
+  color: #fff;
+}
+
+.btn-delete {
+  background-color: $color-accent;
+  color: #fff;
 }
