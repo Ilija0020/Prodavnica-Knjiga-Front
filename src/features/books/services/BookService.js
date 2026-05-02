@@ -12,6 +12,36 @@ const getBooks = async () => {
   }
 };
 
+const getBookById = async (bookId) => {
+  try {
+    const response = await AxiosClient.get(`${RESOURCE}/${bookId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching book:", error);
+    throw error;
+  }
+};
+
+const createBook = async (bookData) => {
+  try {
+    const response = await AxiosClient.post(RESOURCE, bookData);
+    return response.data;
+  } catch (error) {
+    console.error("Error creating book:", error);
+    throw error;
+  }
+};
+
+const updateBook = async (bookId, bookData) => {
+  try {
+    const response = await AxiosClient.put(`${RESOURCE}/${bookId}`, bookData);
+    return response.data;
+  } catch (error) {
+    console.error("Error updating book:", error);
+    throw error;
+  }
+};
+
 const deleteBook = async (bookId) => {
   try {
     await AxiosClient.delete(`${RESOURCE}/${bookId}`);
@@ -23,6 +53,9 @@ const deleteBook = async (bookId) => {
 
 const BooksService = {
   getBooks,
+  getBookById,
+  createBook,
+  updateBook,
   deleteBook,
 };
 

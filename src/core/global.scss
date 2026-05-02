@@ -131,7 +131,7 @@ h1 {
   text-align: center;
 }
 
-/* Globalni stilovi za dugmie */
+/* Stilovi za dugmiće */
 .btn {
   padding: 8px 16px;
   border: none;
@@ -160,4 +160,71 @@ h1 {
 .btn-delete {
   background-color: $color-accent;
   color: #fff;
+}
+
+/* Osnovni stilovi za sve forme na sajtu */
+.form-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+
+  h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: $color-secondary;
+  }
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: $color-dark;
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #fff;
+    color: $color-dark;
+    transition: border-color 0.3s;
+
+    &:focus {
+      outline: none;
+      border-color: $color-primary;
+    }
+
+    &::placeholder {
+      color: rgba($color-secondary, 0.5);
+      font-style: italic;
+    }
+  }
+}
+
+.error-msg {
+  color: $color-accent;
+  font-size: 0.85rem;
+  margin-top: 5px;
+  font-weight: 500;
+}
+
+.form-actions {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+
+  .btn {
+    margin-right: 0;
+  }
 }

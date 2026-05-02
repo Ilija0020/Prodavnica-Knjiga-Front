@@ -15,6 +15,7 @@ const App = () => {
           <Route path="/publishers" element={<PublishersList />} />
           <Route path="/books" element={<BooksList />} />
           <Route path="/books/create" element={<BookForm />} />
+          <Route path="/books/edit/:id" element={<BookForm />} />
         </Routes>
       </main>
     </BrowserRouter>
