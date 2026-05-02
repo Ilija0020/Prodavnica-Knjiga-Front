@@ -1,0 +1,125 @@
+$color-bg: #fff0d1; // Krem/Svetlo žuta (Pozadina sajta)
+$color-primary: #795757; // Svetlo braon (Header / Primarna)
+$color-secondary: #664343; // Tamno braon (Naglasci / Naslovi)
+$color-dark: #3b3030; // Skoro crna braon (Tekst / Jaki akcenti)
+
+/* Osnovni reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: $color-bg;
+  color: $color-dark;
+}
+
+/* Header stilizacija */
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 5%;
+  background-color: $color-primary;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+  .logo a {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .nav-list {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+
+    a {
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 500;
+      transition: all 0.3s;
+      padding: 5px 0;
+
+      &:hover {
+        color: #fff;
+      }
+
+      &.active {
+        color: #fff;
+        border-bottom: 2px solid #fff;
+      }
+    }
+  }
+}
+
+/* Stilovi za tabele */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+  background-color: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  overflow: hidden;
+
+  th,
+  td {
+    padding: 15px 20px;
+    text-align: left;
+  }
+
+  thead {
+    background-color: $color-secondary;
+    color: #fff;
+
+    th {
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+    }
+  }
+
+  tbody {
+    tr {
+      transition: background-color 0.2s;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      color: $color-dark;
+
+      &:nth-child(even) {
+        background-color: rgba($color-bg, 0.2);
+      }
+
+      &:hover {
+        background-color: rgba($color-primary, 0.1);
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+}
+
+/* Glavni sadržaj */
+main {
+  padding: 2rem 5%;
+
+  h1 {
+    color: $color-secondary;
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* Prazna stanja i poruke */
+h1 {
+  text-align: center;
+  margin-top: 2rem;
+}
