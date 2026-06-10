@@ -12,8 +12,19 @@ const getAuthors = async () => {
   }
 };
 
+const getAuthorsPage = async (page) => {
+  try {
+    const response = await AxiosClient.get(`${RESOURCE}/paging?page=${page}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching authors page:", error);
+    throw error;
+  }
+};
+
 const AuthorService = {
   getAuthors,
+  getAuthorsPage,
 };
 
 export default AuthorService;
