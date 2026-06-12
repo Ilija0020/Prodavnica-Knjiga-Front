@@ -5,6 +5,7 @@ import { Home } from "./features/home";
 import { PublishersList } from "./features/publishers";
 import { BooksList, BookForm } from "./features/books";
 import { AuthorsPagination } from "./features/authors";
+import SortPublishers from "./features/publishers/components/SortPublishers";
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="publishers/sort" element={<SortPublishers />} />
           <Route path="/publishers" element={<PublishersList />} />
           <Route path="/books" element={<BooksList />} />
           <Route path="/books/create" element={<BookForm />} />
@@ -21,7 +23,7 @@ const App = () => {
         </Routes>
       </main>
     </BrowserRouter>
-  )
-}
+  );
+};
 
 export default App;
