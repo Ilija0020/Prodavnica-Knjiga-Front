@@ -12,6 +12,28 @@ const getBooks = async () => {
   }
 };
 
+const getSortTypes = async () => {
+  try {
+    const response = await AxiosClient.get(`${RESOURCE}/sortTypes`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching sort types:", error);
+    throw error;
+  }
+};
+
+const getSortedBooks = async (sortType) => {
+  try {
+    const response = await AxiosClient.get(
+      `${RESOURCE}/sort?sortType=${sortType}`,
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching sorted books:", error);
+    throw error;
+  }
+};
+
 const getBookById = async (bookId) => {
   try {
     const response = await AxiosClient.get(`${RESOURCE}/${bookId}`);
@@ -53,6 +75,8 @@ const deleteBook = async (bookId) => {
 
 const BooksService = {
   getBooks,
+  getSortTypes,
+  getSortedBooks,
   getBookById,
   createBook,
   updateBook,

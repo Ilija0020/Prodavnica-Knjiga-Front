@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PublishersService from "../services/PublishersService";
-import SortTypeDropdown from "./SortTypeDropdown";
+import SortTypeDropdown from "../../../core/components/SortTypeDropdown";
 import TableView from "./TableView";
 
 const SortPublishers = () => {
