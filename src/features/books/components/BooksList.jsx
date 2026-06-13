@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import BooksService from "../services/BookService";
+import AuthorService from "../../authors/services/AuthorService";
 import { useNavigate } from "react-router-dom";
 import SortTypeDropdown from "../../../core/components/SortTypeDropdown";
+import FilterSection from "./FilterSection";
 
 const BooksList = () => {
   const navigate = useNavigate();
@@ -13,6 +15,9 @@ const BooksList = () => {
   const [sortType, setSortType] = useState(0);
   const [sortTypeOptions, setSortTypeOptions] = useState([]);
 
+  const [authors, setAuthors] = useState([]);
+  const [filterParams, setFilterParams] = useState({});
+
   useEffect(() => {
     const loadSortTypes = async () => {
       try {
@@ -22,14 +27,28 @@ const BooksList = () => {
         console.error("Error loading sort types:", error.message);
       }
     };
+
+    const loadAuthors = async () => {
+      try {
+        const data = await AuthorService.getAuthors();
+        setAuthors(data);
+      } catch (err) {
+        console.error("Error loading authors:", err.message);
+      }
+    };
+
     loadSortTypes();
+    loadAuthors();
   }, []);
 
   useEffect(() => {
     const loadBooks = async () => {
       try {
         setLoading(true);
-        const data = await BooksService.getSortedBooks(Number(sortType));
+        const data = await BooksService.fetchFilteredAndSortedBooks(
+          filterParams,
+          Number(sortType),
+        );
         setBooks(data);
         setError("");
       } catch (error) {
@@ -39,7 +58,7 @@ const BooksList = () => {
       }
     };
     loadBooks();
-  }, [sortType]);
+  }, [sortType, filterParams]);
 
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this book?")) {
@@ -53,16 +72,22 @@ const BooksList = () => {
     }
   };
 
+  const handleFilter = (filters) => {
+    setFilterParams(filters);
+  };
+
   return (
     <div>
       {loading && <h1>Loading...</h1>}
       {error && <h1>{error}</h1>}
       <h1>Books</h1>
-      
-      <SortTypeDropdown 
-         sortType={sortType} 
-         options={sortTypeOptions} 
-         onSelect={setSortType} 
+
+      <FilterSection authors={authors} onFilter={handleFilter} />
+
+      <SortTypeDropdown
+        sortType={sortType}
+        options={sortTypeOptions}
+        onSelect={setSortType}
       />
 
       <table>
