@@ -262,21 +262,21 @@ h1 {
     gap: 10px;
     margin-top: 1rem;
     padding-top: 1rem;
-    border-top: 1px solid rgba(0,0,0,0.05);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
   }
-  }
+}
 
-  .btn-primary {
+.btn-primary {
   background-color: $color-primary;
   color: #fff;
-  }
+}
 
-  .btn-secondary {
+.btn-secondary {
   background-color: transparent;
-  color: $color-dark;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: #ffffff;
+  border: 1px solid rgb(255, 255, 255);
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.05);
   }
-  }
+}

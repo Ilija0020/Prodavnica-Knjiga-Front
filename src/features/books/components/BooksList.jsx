@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import BooksService from "../services/BookService";
 import AuthorService from "../../authors/services/AuthorService";
 import { useNavigate } from "react-router-dom";
 import SortTypeDropdown from "../../../core/components/SortTypeDropdown";
 import FilterSection from "./FilterSection";
+import UserContext from "../../../core/userContext";
 
 const BooksList = () => {
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
+  const isEditor = user?.role === "Editor";
 
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -99,7 +102,7 @@ const BooksList = () => {
             <th>Published Date</th>
             <th>ISBN</th>
             <th>Pages</th>
-            <th>Actions</th>
+            {isEditor && <th>Actions</th>}
           </tr>
         </thead>
         <tbody>
@@ -115,20 +118,22 @@ const BooksList = () => {
                 <td>{formattedDate}</td>
                 <td>{b.isbn}</td>
                 <td>{b.pageCount}</td>
-                <td>
-                  <button
-                    className="btn btn-edit"
-                    onClick={() => navigate(`/books/edit/${b.id}`)}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="btn btn-delete"
-                    onClick={() => handleDelete(b.id)}
-                  >
-                    Delete
-                  </button>
-                </td>
+                {isEditor && (
+                  <td>
+                    <button
+                      className="btn btn-edit"
+                      onClick={() => navigate(`/books/edit/${b.id}`)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="btn btn-delete"
+                      onClick={() => handleDelete(b.id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                )}
               </tr>
             );
           })}
