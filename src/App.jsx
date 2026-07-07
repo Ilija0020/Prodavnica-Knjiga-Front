@@ -10,6 +10,8 @@ import UserContext from "./core/userContext";
 import Register from "./features/auth/pages/Register";
 import Login from "./features/auth/pages/Login";
 import ProtectedRoute from "./features/auth/components/ProtectedRoute";
+import SearchVolumes from "./features/comics/components/SearchVolumes";
+import SearchIssues from "./features/comics/components/SearchIssues";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -39,6 +41,23 @@ const App = () => {
               element={
                 <ProtectedRoute allowedRoles={["Editor"]}>
                   <BookForm />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/volumes/search"
+              element={
+                <ProtectedRoute allowedRoles={["Editor"]}>
+                  <SearchVolumes />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/volumes/:volumeId/issues"
+              element={
+                <ProtectedRoute allowedRoles={["Editor"]}>
+                  <SearchIssues />
                 </ProtectedRoute>
               }
             />

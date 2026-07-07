@@ -43,6 +43,12 @@ const Header = () => {
             </NavLink>
           </li>
 
+          {user?.role === "Editor" && (
+            <li>
+              <NavLink to="/volumes/search">Search Volumes</NavLink>
+            </li>
+          )}
+
           {user && (
             <li>
               <NavLink to="/books/create">Create Book</NavLink>
