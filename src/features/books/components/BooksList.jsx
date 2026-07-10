@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import SortTypeDropdown from "../../../core/components/SortTypeDropdown";
 import FilterSection from "./FilterSection";
 import UserContext from "../../../core/userContext";
+import ReviewModal from "./ReviewModal";
 
 const BooksList = () => {
   const { user } = useContext(UserContext);
@@ -12,6 +13,8 @@ const BooksList = () => {
   const isEditor = user?.role === "Editor";
 
   const [books, setBooks] = useState([]);
+  const [selectedBook, setSelectedBook] = useState(null);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -20,6 +23,22 @@ const BooksList = () => {
 
   const [authors, setAuthors] = useState([]);
   const [filterParams, setFilterParams] = useState({});
+
+  const loadBooks = async () => {
+    try {
+      setLoading(true);
+      const data = await BooksService.fetchFilteredAndSortedBooks(
+        filterParams,
+        Number(sortType),
+      );
+      setBooks(data);
+      setError("");
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     const loadSortTypes = async () => {
@@ -45,21 +64,6 @@ const BooksList = () => {
   }, []);
 
   useEffect(() => {
-    const loadBooks = async () => {
-      try {
-        setLoading(true);
-        const data = await BooksService.fetchFilteredAndSortedBooks(
-          filterParams,
-          Number(sortType),
-        );
-        setBooks(data);
-        setError("");
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
     loadBooks();
   }, [sortType, filterParams]);
 
@@ -77,6 +81,11 @@ const BooksList = () => {
 
   const handleFilter = (filters) => {
     setFilterParams(filters);
+  };
+
+  const handleReviewSaved = async () => {
+    setSelectedBook(null);
+    await loadBooks();
   };
 
   return (
@@ -102,7 +111,8 @@ const BooksList = () => {
             <th>Published Date</th>
             <th>ISBN</th>
             <th>Pages</th>
-            {isEditor && <th>Actions</th>}
+            <th style={{ textAlign: "center" }}>Avg Rating</th>
+            {user && <th>Actions</th>}
           </tr>
         </thead>
         <tbody>
@@ -118,20 +128,31 @@ const BooksList = () => {
                 <td>{formattedDate}</td>
                 <td>{b.isbn}</td>
                 <td>{b.pageCount}</td>
-                {isEditor && (
+                <td>{Number(b.averageRating ?? 0).toFixed(2)}</td>
+                {user && (
                   <td>
                     <button
                       className="btn btn-edit"
-                      onClick={() => navigate(`/books/edit/${b.id}`)}
+                      onClick={() => setSelectedBook(b)}
                     >
-                      Edit
+                      Review
                     </button>
-                    <button
-                      className="btn btn-delete"
-                      onClick={() => handleDelete(b.id)}
-                    >
-                      Delete
-                    </button>
+                    {isEditor && (
+                      <>
+                        <button
+                          className="btn btn-edit"
+                          onClick={() => navigate(`/books/edit/${b.id}`)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="btn btn-delete"
+                          onClick={() => handleDelete(b.id)}
+                        >
+                          Delete
+                        </button>
+                      </>
+                    )}
                   </td>
                 )}
               </tr>
@@ -139,6 +160,13 @@ const BooksList = () => {
           })}
         </tbody>
       </table>
+      {selectedBook && (
+        <ReviewModal
+          book={selectedBook}
+          onClose={() => setSelectedBook(null)}
+          onSaved={handleReviewSaved}
+        />
+      )}
     </div>
   );
 };
