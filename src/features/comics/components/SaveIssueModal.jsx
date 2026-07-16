@@ -21,13 +21,7 @@ const SaveIssueModal = ({ issue, volumeId, onClose, onSaved }) => {
 
   const onSubmit = async (data) => {
     const issueData = {
-      name: issue.name,
-      releaseDate: releaseDate,
-      issueNumber: issue.issue_number,
-      imagePath: imagePath,
-      description: issue.description,
       externalIssueId: issue.id,
-      externalVolumeId: Number(volumeId),
       pageCount: Number(data.pageCount),
       price: Number(data.price),
       availableCopies: Number(data.availableCopies),
